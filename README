@@ -1,0 +1,21 @@
+This is currently a small collection of tools for use in interactive sessions
+that facilitate debugging, timing and checking code.
+
+```r
+idebug(call(x, y, z))
+```
+temporarily sets debug for call and unsets this after the call is over.
+This simplifies 
+```r
+debug(call)
+call(z, y, z)
+undebug(call)
+```
+
+tmSource() is a simple replacement for source() that returns
+the evaluation time (system.time()) for each expression in the 
+file being source.
+
+checkPkgCode() examines code in an installed R package to 
+verify that all symbols that are referenced actually exist
+and similarly, all classes that are defined have a defined parent/base class.

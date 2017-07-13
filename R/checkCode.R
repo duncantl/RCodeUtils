@@ -1,6 +1,11 @@
 library(codetools)
 checkPkgCode =
-function(pkg, classes = TRUE)
+    #
+    #  Check that thecode in every function references symbols that we can 
+    # find.
+    #
+    
+function(pkg, classes = TRUE,  pkgs = c("methods", "utils", "stats", "base") )  # "graphics"
 {    
   library(pkg, character.only = TRUE)
 
@@ -19,9 +24,8 @@ function(pkg, classes = TRUE)
 
   baseSyms = ls("package:base", all = TRUE)
 
-  pkgs = c("methods", "utils", "stats", "base") # "graphics", 
   invisible(lapply(pkgs, library, character.only = TRUE))
-  allSyms = unlist(lapply(paste0("package:", pkgs), ls, all = TRUE))
+  allSyms = c(unlist(lapply(paste0("package:", pkgs), ls, all = TRUE)), baseSyms)
 
   w2 = uag[!ok] %in% allSyms
   
